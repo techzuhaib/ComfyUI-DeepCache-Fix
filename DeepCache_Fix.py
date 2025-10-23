@@ -218,9 +218,9 @@ class DeepCache_Fix:
                     for p in patch:
                         xuh, hsp = p(xuh, hsp, transformer_options)
                 if xuh is not None and hsp is not None:
-                xuh = th.cat([xuh, hsp], dim=1)
+                   xuh = th.cat([xuh, hsp], dim=1)
                 elif hsp is not None:
-                xuh = hsp
+                   xuh = hsp
                 # else: leave xuh unchanged
                 del hsp
                 if len(hs) > 0:
