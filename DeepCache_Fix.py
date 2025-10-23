@@ -217,7 +217,11 @@ class DeepCache_Fix:
                     patch = transformer_patches["output_block_patch"]
                     for p in patch:
                         xuh, hsp = p(xuh, hsp, transformer_options)
+                if xuh is not None and hsp is not None:
                 xuh = th.cat([xuh, hsp], dim=1)
+                elif hsp is not None:
+                xuh = hsp
+                # else: leave xuh unchanged
                 del hsp
                 if len(hs) > 0:
                     output_shape = hs[-1].shape
