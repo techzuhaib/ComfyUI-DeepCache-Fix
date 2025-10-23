@@ -164,7 +164,9 @@ class DeepCache_Fix:
             emb = unet.time_embed(t_emb)
             if unet.num_classes is not None:
                 assert y.shape[0] == x.shape[0]
-                emb = emb + unet.label_emb(y)
+                # Ensure label embedding is on same device as emb before addition
+            label_emb = unet.label_emb(y.to(emb.device))
+            emb = emb + label_emb
             xuh = x.type(unet.dtype)
             # current_step 是 cache_interval 的整数倍?
             step_cache_interval = current_step % cache_interval
